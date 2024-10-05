@@ -1,0 +1,72 @@
+{
+  "quizzes": [
+    {
+      "id": "81b99061-c7c1-4f20-9675-f172c8d13217",
+      "title": "CT",
+      "timeLimit": 1,
+      "questions": [
+        {
+          "id": "1",
+          "text": "1+1 = 2 ?",
+          "type": "TrueFalse",
+          "options": [
+            "True",
+            "False"
+          ]
+        }
+      ],
+      "status": "inactive"
+    },
+    {
+      "id": "fb55e3fc-5c07-426e-b59c-ad72c05f8d23",
+      "title": "Project Code Assessment",
+      "timeLimit": 7,
+      "questions": [
+        {
+          "id": "1",
+          "text": "Do you love JS?",
+          "type": "TrueFalse",
+          "options": [
+            "True",
+            "False"
+          ]
+        }
+      ],
+      "status": "inactive"
+    },
+    {
+      "id": "206cfeaa-5c93-4406-a289-195d1f101111",
+      "title": "AAAAAAAAAA",
+      "timeLimit": 3,
+      "questions": [
+        {
+          "id": "1",
+          "text": "AAAAAAAAAA",
+          "type": "TrueFalse",
+          "options": [
+            "True",
+            "False"
+          ]
+        }
+      ],
+      "status": "inactive"
+    },
+    {
+      "id": "4bfea0ac-11d5-403d-bc6f-362eb8bc4897",
+      "title": "Mid",
+      "timeLimit": 3,
+      "questions": [
+        {
+          "id": "1",
+          "text": "Ant",
+          "type": "TrueFalse",
+          "options": [
+            "True",
+            "False"
+          ]
+        }
+      ],
+      "status": "inactive"
+    }
+  ]
+}

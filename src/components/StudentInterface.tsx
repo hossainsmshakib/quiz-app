@@ -1,37 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectQuiz } from "../features/quiz/quizSelectors";
-import { submitQuiz } from "../features/quiz/quizSlice";
+import { RootState } from "../store/store";
+import { submitQuiz } from "../store/quizSlice";
 import QuizTimer from "./QuizTimer";
+import { Quiz, Question } from "../types/Quiz";
+import { useNavigate } from "react-router-dom";
 
 interface StudentInterfaceProps {
   studentId: string;
 }
 
 const StudentInterface: React.FC<StudentInterfaceProps> = ({ studentId }) => {
-  const quiz = useSelector(selectQuiz);
+  const quiz: Quiz | undefined = useSelector(
+    (state: RootState) => state.quiz.quizzes[0]
+  );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
 
+  const handleAutoSubmit = () => {
+    if (quiz) {
+      dispatch(submitQuiz({ quizId: quiz.id, answers }));
+      navigate("/");
+    }
+  };
+
   useEffect(() => {
-    if (quiz.status === "ended") {
+    if (quiz?.status === "ended") {
       handleAutoSubmit();
     }
-  }, [quiz.status]);
+  }, [quiz?.status]);
 
   const handleAnswerChange = (questionId: string, answer: string) => {
     setAnswers((prev) => ({ ...prev, [questionId]: answer }));
   };
 
   const handleSubmit = () => {
-    dispatch(submitQuiz({ studentId, answers }));
+    if (quiz) {
+      dispatch(submitQuiz({ quizId: quiz.id, answers }));
+      navigate("/");
+    }
   };
 
-  const handleAutoSubmit = () => {
-    dispatch(submitQuiz({ studentId, answers }));
-  };
-
-  if (quiz.status !== "active") {
+  if (quiz?.status !== "active") {
     return (
       <div className="text-center text-red-600 mt-4">Quiz is not active.</div>
     );
@@ -48,13 +59,13 @@ const StudentInterface: React.FC<StudentInterfaceProps> = ({ studentId }) => {
       </h1>
 
       <div className="space-y-6">
-        {quiz.questions.map((question) => (
+        {quiz.questions.map((question: Question) => (
           <div key={question.id} className="border-b pb-4">
             <p className="text-lg font-semibold text-gray-800 mb-2">
               {question.text}
             </p>
             <div className="flex flex-col space-y-2">
-              {question.options.map((option) => (
+              {question.options.map((option: string) => (
                 <label key={option} className="flex items-center space-x-2">
                   <input
                     type="radio"

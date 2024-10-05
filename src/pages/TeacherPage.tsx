@@ -1,15 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import TeacherPanel from "../components/TeacherPanel";
+import axios from "axios";
+import { setQuizzes } from "../store/quizSlice";
 
 const TeacherPage: React.FC = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchQuizzes = async () => {
+      try {
+        const response = await axios.get("http://localhost:5001/quizzes");
+        dispatch(setQuizzes(response.data));
+      } catch (error) {
+        console.error("Error fetching quizzes:", error);
+      }
+    };
+
+    fetchQuizzes();
+  }, [dispatch]);
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#ed7b49]">
-      <div className="bg-[#ed7b49] rounded-lg p-6 w-full max-w-3xl">
-       {/*  <h1 className="text-3xl font-bold text-center text-gray-800 mb-4">
-          Teacher Panel
-        </h1> */}
-        <TeacherPanel />
-      </div>
+    <div className="container mx-auto">
+      <TeacherPanel />
     </div>
   );
 };
